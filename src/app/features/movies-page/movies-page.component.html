@@ -1,0 +1,3 @@
+<h1>Movies</h1>
+<p-button (onClick)="showAddMovieModal = true" label="Add New Movie" severity="info"></p-button>
+<app-add-movie-form [showAddMovieModal]="showAddMovieModal" (submit)="submitMovie($event)" (close)="resetForm()"></app-add-movie-form>

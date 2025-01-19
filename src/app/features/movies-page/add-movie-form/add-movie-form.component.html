@@ -1,0 +1,15 @@
+<p-dialog header="Submit Movie" (onHide)="closeForm()" [(visible)]="showAddMovieModal" [modal]="true">
+  <form [formGroup]="addMovieForm">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name">Movie Name</label>
+        <input id="name" type="text" pInputText formControlName="name"/>
+      </div>
+      <div class="p-field">
+        <label for="genre">Genre</label>
+        <input id="genre" type="text" pInputText formControlName="genre"/>
+      </div>
+    </div>
+    <p-button (onClick)="submitMovie()" label="Submit" severity="info"></p-button>
+  </form>
+</p-dialog>

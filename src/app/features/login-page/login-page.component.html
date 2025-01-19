@@ -1,1 +1,15 @@
-<p>login-page works!</p>
+<div class="mt-48 flex justify-center">
+  <p-card header="Select User">
+    <div class="flex flex-col gap-3 justify-center">
+      <div>
+        <p-select
+          class="min-w-48"
+          [options]="users"
+          [(ngModel)]="selectedUser"
+          optionLabel="name"
+          placeholder="Select a User"/>
+      </div>
+      <p-button (onClick)="login(selectedUser!)" label="Sign In" [raised]="true" severity="info" size="small" [disabled]="selectedUser === undefined"/>
+    </div>
+  </p-card>
+</div>
