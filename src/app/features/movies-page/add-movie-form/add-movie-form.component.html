@@ -1,14 +1,17 @@
-<p-panel [toggleable]="true" header="Add Movie">
-  <form [formGroup]="addMovieForm">
-    <div class="flex flex-col gap-2 mb-5">
-      <div class="flex flex-col">
-        <label for="name">Movie Name</label>
-        <input id="name" type="text" pInputText formControlName="name"/>
+<div [ngClass]="{'panel-minimized': isCollapsed, 'panel-expanded': !isCollapsed}" class="rounded-none">
+  <p-panel [(collapsed)]="isCollapsed" [toggleable]="true" (toggle)="togglePanel()" header="Add Movie">
+    <form [formGroup]="addMovieForm">
+      <div class="flex flex-col gap-2 mb-5">
+        <div class="flex flex-col">
+          <label for="name">Movie Name</label>
+          <input id="name" type="text" pInputText formControlName="name"/>
+        </div>
+        <div class="flex flex-col">
+          <p-multi-select [options]="genres" display="chip" formControlName="genres"
+                          placeholder="Select Genres"></p-multi-select>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <p-multi-select [options]="genres" display="chip" formControlName="genres" placeholder="Select Genres"></p-multi-select>
-      </div>
-    </div>
-    <p-button (onClick)="submitMovie()" rounded label="Submit" severity="info"></p-button>
-  </form>
-</p-panel>
+      <p-button (onClick)="submitMovie()" rounded label="Submit" severity="info"></p-button>
+    </form>
+  </p-panel>
+</div>

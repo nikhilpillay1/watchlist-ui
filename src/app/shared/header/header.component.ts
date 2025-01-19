@@ -17,7 +17,7 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  selectedUser!: User;
+  selectedUser?: User;
   private userSubscription!: Subscription;
 
   constructor(private userService: UserService, private router: Router) {

@@ -1,0 +1,7 @@
+.panel-minimized {
+  @apply w-44;
+}
+
+.panel-expanded {
+  @apply w-80;
+}

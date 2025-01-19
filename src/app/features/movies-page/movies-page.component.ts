@@ -3,12 +3,14 @@ import {UserService} from '../../shared/services/user.service';
 import {AddMovieFormComponent} from './add-movie-form/add-movie-form.component';
 import {TableModule} from 'primeng/table';
 import {Movie} from '../../models/movie';
+import {Card} from 'primeng/card';
 
 @Component({
   selector: 'app-movies-page',
   imports: [
     AddMovieFormComponent,
-    TableModule
+    TableModule,
+    Card
   ],
   templateUrl: './movies-page.component.html',
   styleUrl: './movies-page.component.css'
