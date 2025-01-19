@@ -26,6 +26,8 @@ export class MoviesPageComponent {
   submitMovie(event: any) {
     this.showAddMovieModal = false;
     console.log(event);
+
+    //submit to back-end here
   }
 
   resetForm() {

@@ -1,17 +1,24 @@
 <div [ngClass]="{'panel-minimized': isCollapsed, 'panel-expanded': !isCollapsed}" class="rounded-none">
   <p-panel [(collapsed)]="isCollapsed" [toggleable]="true" (toggle)="togglePanel()" header="Add Movie">
     <form [formGroup]="addMovieForm">
-      <div class="flex flex-col gap-2 mb-5">
+      <div class="flex flex-col gap-5 mb-5">
         <div class="flex flex-col">
-          <label for="name">Movie Name</label>
+          <label for="name">Name</label>
           <input id="name" type="text" pInputText formControlName="name"/>
         </div>
+        <div class="flex gap-3">
+          <p>Series?</p>
+          <p-checkbox formControlName="isSeries" [binary]="true"/>
+        </div>
+        @if (isSeries) {
+          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid placeholder="Press enter to submit subtitles"></p-auto-complete>
+        }
         <div class="flex flex-col">
           <p-multi-select [options]="genres" display="chip" formControlName="genres"
-                          placeholder="Select Genres"></p-multi-select>
+                          placeholder="Select Genres" showToggleAll="false"></p-multi-select>
         </div>
       </div>
-      <p-button (onClick)="submitMovie()" rounded label="Submit" severity="info"></p-button>
+      <p-button (onClick)="submitMovie()" label="Submit" severity="info"></p-button>
     </form>
   </p-panel>
 </div>
