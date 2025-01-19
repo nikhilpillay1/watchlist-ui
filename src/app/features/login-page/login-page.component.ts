@@ -34,6 +34,10 @@ export class LoginPageComponent implements OnInit {
       {name: "Reon"},
       {name: "Nishen"},
     ];
+
+    this.selectedUser = undefined;
+    this.userService.clearUser();
+    console.log("clearing user");
   }
 
   login(selectedUser: User) {

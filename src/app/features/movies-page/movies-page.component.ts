@@ -1,29 +1,25 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
-import {User} from '../../models/user';
-import {Button} from 'primeng/button';
 import {AddMovieFormComponent} from './add-movie-form/add-movie-form.component';
+import {TableModule} from 'primeng/table';
+import {Movie} from '../../models/movie';
 
 @Component({
   selector: 'app-movies-page',
   imports: [
-    Button,
-    AddMovieFormComponent
+    AddMovieFormComponent,
+    TableModule
   ],
   templateUrl: './movies-page.component.html',
   styleUrl: './movies-page.component.css'
 })
-export class MoviesPageComponent implements OnInit {
+export class MoviesPageComponent {
 
   constructor(private userService: UserService) {
   }
 
-  selectedUser!: User;
   showAddMovieModal: boolean = false;
-
-  ngOnInit(): void {
-    this.selectedUser = this.userService.getUser();
-  }
+  movies: Movie[] = [];
 
   submitMovie(event: any) {
     this.showAddMovieModal = false;

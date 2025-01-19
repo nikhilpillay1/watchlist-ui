@@ -1,15 +1,14 @@
-<p-dialog header="Submit Movie" (onHide)="closeForm()" [(visible)]="showAddMovieModal" [modal]="true">
+<p-panel [toggleable]="true" header="Add Movie">
   <form [formGroup]="addMovieForm">
-    <div class="p-fluid">
-      <div class="p-field">
+    <div class="flex flex-col gap-2 mb-5">
+      <div class="flex flex-col">
         <label for="name">Movie Name</label>
         <input id="name" type="text" pInputText formControlName="name"/>
       </div>
-      <div class="p-field">
-        <label for="genre">Genre</label>
-        <input id="genre" type="text" pInputText formControlName="genre"/>
+      <div class="flex flex-col">
+        <p-multi-select [options]="genres" display="chip" formControlName="genres" placeholder="Select Genres"></p-multi-select>
       </div>
     </div>
-    <p-button (onClick)="submitMovie()" label="Submit" severity="info"></p-button>
+    <p-button (onClick)="submitMovie()" rounded label="Submit" severity="info"></p-button>
   </form>
-</p-dialog>
+</p-panel>
