@@ -33,6 +33,11 @@ export class LoginPageComponent implements OnInit {
       {name: "Nikhil"},
       {name: "Reon"},
       {name: "Nishen"},
+      {name: "Shannen"},
+      {name: "Yuvi"},
+      {name: "Kavs"},
+      {name: "Nori"},
+      {name: "Tahil"},
     ];
 
     this.selectedUser = undefined;

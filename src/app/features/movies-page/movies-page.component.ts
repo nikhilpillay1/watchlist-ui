@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../shared/services/user.service';
 import {AddMovieFormComponent} from './add-movie-form/add-movie-form.component';
 import {TableModule} from 'primeng/table';
 import {Movie} from '../../models/movie';
 import {Card} from 'primeng/card';
+import {MovieService} from '../../services/movie.service';
 
 @Component({
   selector: 'app-movies-page',
@@ -15,19 +16,24 @@ import {Card} from 'primeng/card';
   templateUrl: './movies-page.component.html',
   styleUrl: './movies-page.component.css'
 })
-export class MoviesPageComponent {
+export class MoviesPageComponent implements OnInit {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private movieService: MovieService) {
   }
 
   showAddMovieModal: boolean = false;
   movies: Movie[] = [];
 
+  ngOnInit(): void {
+    this.movieService.getMovies().subscribe(movies => {
+      this.movies = movies;
+    })
+  }
+
   submitMovie(event: any) {
     this.showAddMovieModal = false;
     console.log(event);
-
-    //submit to back-end here
+    this.movieService.save(event).subscribe();
   }
 
   resetForm() {

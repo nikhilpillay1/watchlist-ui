@@ -1,13 +1,12 @@
 <header class="flex justify-between items-center shadow-md px-6 h-24">
 
   <div class="flex ml-24">
-    <p>WatchList</p>
+
   </div>
 
   <div class="flex mr-24 gap-5 items-center">
     @if (selectedUser?.name) {
       <p>{{ selectedUser?.name }}</p>
-      <i class="pi pi-user"></i>
       <p-button label="Sign Out" (onClick)="logout()" rounded severity="info" size="small"></p-button>
     }
   </div>
