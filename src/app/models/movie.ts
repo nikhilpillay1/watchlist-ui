@@ -1,9 +1,10 @@
-import {User} from './user';
+import {Genre} from './genre';
+import {MovieSubtitle} from './movie-subtitle';
 
 export interface Movie {
   name: string,
-  genres: string[],
+  genres: Genre[],
   isSeries: boolean,
-  subtitles?: string[],
-  submittedBy: User,
+  subtitles?: MovieSubtitle[],
+  submitter: string,
 }

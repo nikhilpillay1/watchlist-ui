@@ -5,13 +5,23 @@ import {TableModule} from 'primeng/table';
 import {Movie} from '../../models/movie';
 import {Card} from 'primeng/card';
 import {MovieService} from '../../services/movie.service';
+import {NgForOf, NgIf} from '@angular/common';
+import {Chip} from 'primeng/chip';
+import {Button, ButtonDirective} from 'primeng/button';
+import {Ripple} from 'primeng/ripple';
 
 @Component({
   selector: 'app-movies-page',
   imports: [
     AddMovieFormComponent,
     TableModule,
-    Card
+    Card,
+    NgForOf,
+    NgIf,
+    Chip,
+    ButtonDirective,
+    Ripple,
+    Button
   ],
   templateUrl: './movies-page.component.html',
   styleUrl: './movies-page.component.css'
@@ -23,6 +33,7 @@ export class MoviesPageComponent implements OnInit {
 
   showAddMovieModal: boolean = false;
   movies: Movie[] = [];
+  expandedRows = {};
 
   ngOnInit(): void {
     this.movieService.getMovies().subscribe(movies => {

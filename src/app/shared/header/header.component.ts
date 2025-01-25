@@ -1,8 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Menubar} from 'primeng/menubar';
-import {MenuItem, PrimeTemplate} from 'primeng/api';
 import {UserService} from '../services/user.service';
-import {User} from '../../models/user';
 import {Subscription} from 'rxjs';
 import {Button} from 'primeng/button';
 import {Router} from '@angular/router';
@@ -17,7 +14,7 @@ import {Router} from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  selectedUser?: User;
+  selectedUser?: string;
   private userSubscription!: Subscription;
 
   constructor(private userService: UserService, private router: Router) {

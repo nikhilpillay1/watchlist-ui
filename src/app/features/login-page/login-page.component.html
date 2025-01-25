@@ -6,7 +6,6 @@
           class="min-w-48"
           [options]="users"
           [(ngModel)]="selectedUser"
-          optionLabel="name"
           placeholder="Select a User"/>
       </div>
       <p-button (onClick)="login(selectedUser!)" label="Sign In" [raised]="true" severity="info" size="small" [disabled]="selectedUser === undefined"/>

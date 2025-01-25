@@ -15,7 +15,7 @@
         }
         <div class="flex flex-col">
           <p-multi-select [options]="genres" display="chip" formControlName="genres"
-                          placeholder="Select Genres" showToggleAll="false"></p-multi-select>
+                          placeholder="Select Genres" showToggleAll="false" [maxSelectedLabels]="2"></p-multi-select>
         </div>
       </div>
       <p-button (onClick)="submitMovie()" label="Submit" severity="info"></p-button>

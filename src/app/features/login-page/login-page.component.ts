@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {User} from '../../models/user';
 import {DropdownModule} from 'primeng/dropdown';
 import {FormsModule} from '@angular/forms';
 import {Card} from 'primeng/card';
@@ -25,19 +24,19 @@ export class LoginPageComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) {
   }
 
-  users: User[] = [];
-  selectedUser?: User;
+  users: string[] = [];
+  selectedUser?: string;
 
   ngOnInit() {
     this.users = [
-      {name: "Nikhil"},
-      {name: "Reon"},
-      {name: "Nishen"},
-      {name: "Shannen"},
-      {name: "Yuvi"},
-      {name: "Kavs"},
-      {name: "Nori"},
-      {name: "Tahil"},
+      "Nikhil",
+      "Reon",
+      "Nishen",
+      "Shannen",
+      "Yuvi",
+      "Kavs",
+      "Nori",
+      "Tahil",
     ];
 
     this.selectedUser = undefined;
@@ -45,7 +44,7 @@ export class LoginPageComponent implements OnInit {
     console.log("clearing user");
   }
 
-  login(selectedUser: User) {
+  login(selectedUser: string) {
     this.userService.setUser(selectedUser);
     this.router.navigate(["/movies"]);
   }

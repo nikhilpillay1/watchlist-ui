@@ -1,12 +1,11 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {InputText} from 'primeng/inputtext';
-import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Button} from 'primeng/button';
 import {Movie} from '../../../models/movie';
 import {MultiSelect} from 'primeng/multiselect';
 import {Panel} from 'primeng/panel';
 import {UserService} from '../../../shared/services/user.service';
-import {User} from '../../../models/user';
 import {NgClass} from '@angular/common';
 import {Subscription} from 'rxjs';
 import {Checkbox} from 'primeng/checkbox';
@@ -36,7 +35,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
   movie?: Movie;
   genres: string[] = [];
   isCollapsed =  false;
-  selectedUser!: User;
+  selectedUser!: string;
   @Output() submit = new EventEmitter<Movie>();
   private userSubscription!: Subscription
   private seriesSubscription!: Subscription
@@ -46,7 +45,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
     name: new FormControl('', [Validators.required]),
     isSeries: new FormControl(false),
     genres: new FormControl<string[] | null>([], [Validators.required]),
-    subtitles: new FormControl<string[]>([], [Validators.required]),
+    subtitles: new FormControl<string[]>([]),
   })
 
   ngOnInit(): void {
@@ -75,14 +74,31 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
 
   submitMovie() {
     if (this.addMovieForm.valid) {
-      this.movie = {
-        name: this.addMovieForm.get("name")?.value!,
-        genres: this.addMovieForm.get("genres")?.value!,
-        isSeries: this.addMovieForm.get("isSeries")?.value!,
-        submittedBy: this.selectedUser,
-        subtitles: this.addMovieForm.get("subtitles")?.value!
+
+      if (this.addMovieForm.get("isSeries")?.value === true) {
+        this.movie = {
+          name: this.addMovieForm.get("name")?.value!,
+          genres: this.addMovieForm.get("genres")!.value!.map(genre => {
+            return { name: genre };
+          }),
+          isSeries: this.addMovieForm.get("isSeries")?.value!,
+          submitter: this.selectedUser,
+          subtitles: this.addMovieForm.get("subtitles")!.value!.map(subtitle => {
+            return { subtitle : subtitle};
+          }),
+        }
+      } else {
+        this.movie = {
+          name: this.addMovieForm.get("name")?.value!,
+          genres: this.addMovieForm.get("genres")!.value!.map(genre => {
+            return { name: genre };
+          }),
+          isSeries: this.addMovieForm.get("isSeries")?.value!,
+          submitter: this.selectedUser,
+        }
       }
     }
+    console.log(this.movie);
     this.submit.emit(this.movie);
     this.addMovieForm.reset();
   }
