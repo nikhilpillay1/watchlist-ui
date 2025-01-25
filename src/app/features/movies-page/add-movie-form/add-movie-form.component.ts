@@ -34,7 +34,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
 
   movie?: Movie;
   genres: string[] = [];
-  isCollapsed =  false;
+  isCollapsed =  true;
   selectedUser!: string;
   @Output() submit = new EventEmitter<Movie>();
   private userSubscription!: Subscription

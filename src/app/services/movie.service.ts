@@ -20,4 +20,8 @@ export class MovieService {
   public getMovies(): Observable<Movie[]> {
     return this.http.get<Movie[]>(`${this.baseUrl}/all`);
   }
+
+  public deleteMovie(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
 }

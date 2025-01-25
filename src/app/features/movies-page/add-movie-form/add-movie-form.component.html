@@ -11,7 +11,7 @@
           <p-checkbox formControlName="isSeries" [binary]="true"/>
         </div>
         @if (isSeries) {
-          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid placeholder="Press enter to submit subtitles"></p-auto-complete>
+          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid placeholder="Press enter to add subtitles"></p-auto-complete>
         }
         <div class="flex flex-col">
           <p-multi-select [options]="genres" display="chip" formControlName="genres"

@@ -11,27 +11,31 @@
             <th>Name</th>
             <th>Genre</th>
             <th>Submitted By</th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template #body let-movie let-expanded="expanded">
-          <tr>
+          <tr [pRowToggler]="movie.subtitles.length > 1 ? movie : null">
             <td>
-              <p-button type="button" pRipple [pRowToggler]="movie" [text]="true" [rounded]="true" [plain]="true"
-                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
+              @if (movie.subtitles.length > 1) {
+                <p-button type="button" pRipple [text]="true" [rounded]="true" [plain]="true"
+                          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
+              }
             </td>
             <td>
               <div class="flex items-center gap-3">
                 <p>{{ movie.name }}</p>
               </div>
             </td>
-            <td>
-              <p-chip
-                *ngFor="let genre of movie.genres"
-                [label]="genre.name">
-              </p-chip>
+            <td class="flex gap-1">
+              <p-chip *ngFor="let genre of movie.genres.slice(0, 3)" [label]="genre.name"></p-chip>
+              <p-chip *ngIf="movie.genres.length > 3" [label]="'+' + (movie.genres.length - 3)"></p-chip>
             </td>
             <td>
               {{ movie.submitter }}
+            </td>
+            <td>
+              <p-button (click)="deleteMovie($event, movie)" icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
             </td>
           </tr>
         </ng-template>
@@ -54,9 +58,8 @@
         </ng-template>
       </p-table>
     </p-card>
-
-
     <app-add-movie-form (submit)="submitMovie($event)"
                         (close)="resetForm()"></app-add-movie-form>
   </div>
+  <p-confirm-dialog></p-confirm-dialog>
 </div>

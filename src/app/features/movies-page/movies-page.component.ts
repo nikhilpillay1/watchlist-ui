@@ -7,28 +7,31 @@ import {Card} from 'primeng/card';
 import {MovieService} from '../../services/movie.service';
 import {NgForOf, NgIf} from '@angular/common';
 import {Chip} from 'primeng/chip';
-import {Button, ButtonDirective} from 'primeng/button';
+import {Button} from 'primeng/button';
 import {Ripple} from 'primeng/ripple';
+import {ConfirmationService} from 'primeng/api';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-movies-page',
   imports: [
+    ConfirmDialogModule,
     AddMovieFormComponent,
     TableModule,
     Card,
     NgForOf,
-    NgIf,
     Chip,
-    ButtonDirective,
     Ripple,
-    Button
+    Button,
+    NgIf
   ],
+  providers: [ConfirmationService],
   templateUrl: './movies-page.component.html',
   styleUrl: './movies-page.component.css'
 })
 export class MoviesPageComponent implements OnInit {
 
-  constructor(private userService: UserService, private movieService: MovieService) {
+  constructor(private confirmationService: ConfirmationService, private movieService: MovieService) {
   }
 
   showAddMovieModal: boolean = false;
@@ -36,19 +39,38 @@ export class MoviesPageComponent implements OnInit {
   expandedRows = {};
 
   ngOnInit(): void {
+    this.updateData();
+  }
+
+  private updateData() {
     this.movieService.getMovies().subscribe(movies => {
       this.movies = movies;
-    })
+    });
   }
 
   submitMovie(event: any) {
     this.showAddMovieModal = false;
-    console.log(event);
-    this.movieService.save(event).subscribe();
+    this.movieService.save(event).subscribe(() => {
+      this.updateData();
+    });
   }
 
   resetForm() {
     this.showAddMovieModal = false;
   }
 
+  deleteMovie(event: MouseEvent, movie: Movie) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete this movie?',
+      header: 'Confirm Deletion',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        if (movie.id != null) {
+          this.movieService.deleteMovie(movie.id).subscribe(() => {
+            this.updateData();
+          });
+        }
+      }
+    });
+  }
 }
