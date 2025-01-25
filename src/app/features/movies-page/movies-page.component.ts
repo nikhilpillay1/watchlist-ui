@@ -50,4 +50,5 @@ export class MoviesPageComponent implements OnInit {
   resetForm() {
     this.showAddMovieModal = false;
   }
+
 }

@@ -4,12 +4,8 @@
   </div>
   <div class="flex gap-5">
     <p-card class="w-full">
-      <p-table
-        [value]="movies"
-        [tableStyle]="{ 'min-width': '50rem' }"
-        dataKey="id"
-        [expandedRowKeys]="expandedRows">
-        <ng-template pTemplate="header">
+      <p-table [value]="movies" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows">
+        <ng-template #header>
           <tr>
             <th style="width: 3rem"></th>
             <th>Name</th>
@@ -17,11 +13,11 @@
             <th>Submitted By</th>
           </tr>
         </ng-template>
-
-        <ng-template pTemplate="body" let-movie let-expanded="expanded">
+        <ng-template #body let-movie let-expanded="expanded">
           <tr>
             <td>
-              <p-button type="button" pRipple [pRowToggler]="movie" [text]="true" [rounded]="true" [plain]="true" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'" />
+              <p-button type="button" pRipple [pRowToggler]="movie" [text]="true" [rounded]="true" [plain]="true"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
             </td>
             <td>
               <div class="flex items-center gap-3">
@@ -39,24 +35,27 @@
             </td>
           </tr>
         </ng-template>
-
-        <ng-template let-movie>
+        <ng-template #expandedrow let-movie>
           <tr>
-            <td colspan="4">
-              <p-table [value]="movie.subtitles" dataKey="id">
-                <ng-template pTemplate="body" let-subtitle>
-                  <tr>
-                    <td colspan="4">
-                      {{ movie.name }} {{ subtitle.subtitle }}
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
+            <td colspan="7">
+              <div class="p-4">
+                <p-table [value]="movie.subtitles" dataKey="id">
+                  <ng-template #body let-subtitle>
+                    <tr>
+                      <td colspan="4">
+                        {{ movie.name }} {{ subtitle.subtitle }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
             </td>
           </tr>
         </ng-template>
       </p-table>
     </p-card>
+
+
     <app-add-movie-form (submit)="submitMovie($event)"
                         (close)="resetForm()"></app-add-movie-form>
   </div>
