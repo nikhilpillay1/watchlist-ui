@@ -97,10 +97,14 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
           submitter: this.selectedUser,
         }
       }
+      console.log(this.movie);
+      this.submit.emit(this.movie);
+      this.addMovieForm.reset();
+
+    } else {
+      console.log("invalid");
     }
-    console.log(this.movie);
-    this.submit.emit(this.movie);
-    this.addMovieForm.reset();
+
   }
 
   togglePanel() {
