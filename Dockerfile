@@ -1,18 +1,18 @@
 FROM node:latest AS build
 
-WORKDIR /app
+WORKDIR /usr/local/app
 
 COPY package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY ./ /usr/local/app/
 
-RUN npm run build --configuration --production
+RUN npm run build
 
-FROM nginx:alpine
+FROM nginx:latest
 
-COPY --from=build /app/dist/watchlist-ui /usr/share/nginx/html
+COPY --from=build /usr/local/app/dist/watchlist-ui/browser /usr/share/nginx/html
 
 EXPOSE 80
 
