@@ -7,15 +7,27 @@
           <input id="name" type="text" pInputText formControlName="name"/>
         </div>
         <div class="flex gap-3">
-          <p>Series?</p>
+          <p>Series</p>
           <p-checkbox formControlName="isSeries" [binary]="true"/>
         </div>
         @if (isSeries) {
-          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid placeholder="Press enter to add subtitles"></p-auto-complete>
+          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid
+                           placeholder="Press enter to add subtitles"></p-auto-complete>
         }
         <div class="flex flex-col">
-          <p-multi-select [options]="genres" display="chip" formControlName="genres"
-                          placeholder="Select Genres" showToggleAll="false" [maxSelectedLabels]="2"></p-multi-select>
+          <p-multi-select [options]="genres" display="chip" optionLabel="name" formControlName="genres"
+                          placeholder="Select Genres" showToggleAll="false" (onFilter)="checkFilter($event)"
+                          [maxSelectedLabels]="2">
+            <ng-template let-genre pTemplate="item">
+              {{ genre.name | titlecase }}
+            </ng-template>
+            <ng-template pTemplate="footer">
+              <div class="mb-2">
+                <p-button *ngIf="showAddButton" (onClick)="saveGenre()" class="ml-4" size="small" severity="info"
+                          label="Add Genre"></p-button>
+              </div>
+            </ng-template>
+          </p-multi-select>
         </div>
       </div>
       <p-button (onClick)="submitMovie()" label="Submit" severity="info"></p-button>

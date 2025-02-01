@@ -6,10 +6,13 @@ import {Movie} from '../../../models/movie';
 import {MultiSelect} from 'primeng/multiselect';
 import {Panel} from 'primeng/panel';
 import {UserService} from '../../../shared/services/user.service';
-import {NgClass} from '@angular/common';
+import {NgClass, NgIf, TitleCasePipe} from '@angular/common';
 import {Subscription} from 'rxjs';
 import {Checkbox} from 'primeng/checkbox';
 import {AutoComplete} from 'primeng/autocomplete';
+import {PrimeTemplate} from 'primeng/api';
+import {Genre} from '../../../models/genre';
+import {GenreService} from '../../../services/genre.service';
 
 @Component({
   selector: 'app-add-movie-form',
@@ -22,24 +25,30 @@ import {AutoComplete} from 'primeng/autocomplete';
     Panel,
     NgClass,
     Checkbox,
-    AutoComplete
+    AutoComplete,
+    PrimeTemplate,
+    NgIf,
+    TitleCasePipe
   ],
   templateUrl: './add-movie-form.component.html',
   styleUrl: './add-movie-form.component.css'
 })
 export class AddMovieFormComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private genreService: GenreService) {
   }
 
   movie?: Movie;
-  genres: string[] = [];
+  genres: Genre[] = [];
   isCollapsed =  true;
   selectedUser!: string;
   @Output() submit = new EventEmitter<Movie>();
   private userSubscription!: Subscription
   private seriesSubscription!: Subscription
   isSeries: boolean = false;
+  searchText: string = '';
+  showAddButton = false;
+  genreText = '';
 
   addMovieForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -49,10 +58,8 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
   })
 
   ngOnInit(): void {
-    this.genres = [
-      "Action", "Adventure", "Horror", "Drama",
-      "Sci-fi", "Romance", "Thriller", "Comedy"
-    ]
+    this.getGenres();
+
     this.userSubscription = this.userService.getUser().subscribe((user) => {
       this.selectedUser = user;
     });
@@ -61,6 +68,12 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
       this.isSeries = !!checked;
     });
 
+  }
+
+  private getGenres() {
+    this.genreService.getAllGenres().subscribe(genres => {
+      this.genres = genres;
+    });
   }
 
   ngOnDestroy(): void {
@@ -109,5 +122,29 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
 
   togglePanel() {
     this.isCollapsed = !this.isCollapsed;
+  }
+
+  checkFilter(event: any) {
+    let matchFound = false;
+    this.searchText = event.filter.trim();
+    this.genres.map(genre => {
+      if (genre.name.toLowerCase().includes(this.searchText.toLowerCase())) {
+        matchFound = true;
+      }
+    });
+    this.showAddButton = !matchFound;
+  }
+
+  saveGenre() {
+    this.genreService.save({
+      name: this.searchText.toLowerCase(),
+    }).subscribe({
+      next: () => {
+        this.getGenres();
+      },
+      error: (err) => {
+        console.error('Error submitting genre: ', err)
+      }
+    });
   }
 }
