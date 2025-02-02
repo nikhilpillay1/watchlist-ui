@@ -30,12 +30,13 @@ import {GenreService} from '../../../services/genre.service';
     NgIf,
     TitleCasePipe
   ],
+  providers: [TitleCasePipe],
   templateUrl: './add-movie-form.component.html',
   styleUrl: './add-movie-form.component.css'
 })
 export class AddMovieFormComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService, private genreService: GenreService) {
+  constructor(private userService: UserService, private genreService: GenreService, private titleCasePipe: TitleCasePipe) {
   }
 
   movie?: Movie;
@@ -72,8 +73,12 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
 
   private getGenres() {
     this.genreService.getAllGenres().subscribe(genres => {
-      this.genres = genres;
+      this.genres = genres.map(genre => ({
+        ...genre,
+        name: this.titleCasePipe.transform(genre.name),
+      }));
     });
+    console.log(this.genres);
   }
 
   ngOnDestroy(): void {
@@ -94,7 +99,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
           genres: this.addMovieForm.get("genres")!.value!.map(genre => {
             return {
               id: genre.id,
-              name: genre.name,
+              name: genre.name.toLowerCase(),
             }
           }),
           isSeries: this.addMovieForm.get("isSeries")?.value!,
@@ -109,7 +114,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
           genres: this.addMovieForm.get("genres")!.value!.map(genre => {
             return {
               id: genre.id,
-              name: genre.name,
+              name: genre.name.toLowerCase(),
             }
           }),
           isSeries: this.addMovieForm.get("isSeries")?.value!,
