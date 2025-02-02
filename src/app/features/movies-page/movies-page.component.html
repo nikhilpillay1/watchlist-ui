@@ -28,7 +28,7 @@
               </div>
             </td>
             <td class="flex gap-1">
-              <p-chip *ngFor="let genre of movie.genres.slice(0, 3)" [label]="genre.name"></p-chip>
+              <p-chip *ngFor="let genre of movie.genres.slice(0, 3)" [label]="genre.name | titlecase"></p-chip>
               <p-chip *ngIf="movie.genres.length > 3" [label]="'+' + (movie.genres.length - 3)"></p-chip>
             </td>
             <td>

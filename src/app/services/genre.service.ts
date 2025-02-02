@@ -1,6 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {Movie} from '../models/movie';
 import {HttpClient} from '@angular/common/http';
 import {Genre} from '../models/genre';
 
@@ -22,5 +21,7 @@ export class GenreService {
     return this.http.post<Genre>(`${this.baseUrl}/save`, genre);
   }
 
-
+  public deleteGenre(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/delete/${id}`);
+  }
 }

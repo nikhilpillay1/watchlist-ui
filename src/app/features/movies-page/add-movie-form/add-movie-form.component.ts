@@ -53,7 +53,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
   addMovieForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     isSeries: new FormControl(false),
-    genres: new FormControl<string[] | null>([], [Validators.required]),
+    genres: new FormControl<Genre[] | null>([], [Validators.required]),
     subtitles: new FormControl<string[]>([]),
   })
 
@@ -92,7 +92,10 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
         this.movie = {
           name: this.addMovieForm.get("name")?.value!,
           genres: this.addMovieForm.get("genres")!.value!.map(genre => {
-            return { name: genre };
+            return {
+              id: genre.id,
+              name: genre.name,
+            }
           }),
           isSeries: this.addMovieForm.get("isSeries")?.value!,
           submitter: this.selectedUser,
@@ -104,7 +107,10 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
         this.movie = {
           name: this.addMovieForm.get("name")?.value!,
           genres: this.addMovieForm.get("genres")!.value!.map(genre => {
-            return { name: genre };
+            return {
+              id: genre.id,
+              name: genre.name,
+            }
           }),
           isSeries: this.addMovieForm.get("isSeries")?.value!,
           submitter: this.selectedUser,

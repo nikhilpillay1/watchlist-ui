@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from '../../shared/services/user.service';
 import {AddMovieFormComponent} from './add-movie-form/add-movie-form.component';
 import {TableModule} from 'primeng/table';
 import {Movie} from '../../models/movie';
 import {Card} from 'primeng/card';
 import {MovieService} from '../../services/movie.service';
-import {NgForOf, NgIf} from '@angular/common';
+import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {Chip} from 'primeng/chip';
 import {Button} from 'primeng/button';
 import {Ripple} from 'primeng/ripple';
@@ -23,7 +22,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     Chip,
     Ripple,
     Button,
-    NgIf
+    NgIf,
+    TitleCasePipe
   ],
   providers: [ConfirmationService],
   templateUrl: './movies-page.component.html',
