@@ -6,14 +6,6 @@
           <label for="name">Name</label>
           <input id="name" type="text" pInputText formControlName="name"/>
         </div>
-        <div class="flex gap-3">
-          <p>Series</p>
-          <p-checkbox formControlName="isSeries" [binary]="true"/>
-        </div>
-        @if (isSeries) {
-          <p-auto-complete formControlName="subtitles" multiple [typeahead]="false" fluid
-                           placeholder="Press enter to add subtitles"></p-auto-complete>
-        }
         <div class="flex flex-col">
           <p-multi-select [options]="genres" display="chip" optionLabel="name" formControlName="genres"
                           placeholder="Select Genres" showToggleAll="false" (onFilter)="checkFilter($event)"

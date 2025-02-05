@@ -7,7 +7,6 @@ import {MovieService} from '../../services/movie.service';
 import {NgForOf, NgIf, TitleCasePipe} from '@angular/common';
 import {Chip} from 'primeng/chip';
 import {Button} from 'primeng/button';
-import {Ripple} from 'primeng/ripple';
 import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 
@@ -20,7 +19,6 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
     Card,
     NgForOf,
     Chip,
-    Ripple,
     Button,
     NgIf,
     TitleCasePipe

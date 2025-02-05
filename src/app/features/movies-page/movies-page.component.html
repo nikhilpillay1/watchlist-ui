@@ -7,7 +7,6 @@
       <p-table [value]="movies" dataKey="id" [tableStyle]="{ 'min-width': '60rem' }" [expandedRowKeys]="expandedRows">
         <ng-template #header>
           <tr>
-            <th style="width: 3rem"></th>
             <th>Name</th>
             <th>Genre</th>
             <th>Submitted By</th>
@@ -15,27 +14,22 @@
           </tr>
         </ng-template>
         <ng-template #body let-movie let-expanded="expanded">
-          <tr [pRowToggler]="movie.subtitles.length > 1 ? movie : null">
-            <td>
-              @if (movie.subtitles.length > 1) {
-                <p-button type="button" pRipple [text]="true" [rounded]="true" [plain]="true"
-                          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"/>
-              }
-            </td>
+          <tr [pRowToggler]="movie">
             <td>
               <div class="flex items-center gap-3">
                 <p>{{ movie.name }}</p>
               </div>
             </td>
             <td class="flex gap-1">
-              <p-chip *ngFor="let genre of movie.genres.slice(0, 3)" [label]="genre.name | titlecase"></p-chip>
-              <p-chip *ngIf="movie.genres.length > 3" [label]="'+' + (movie.genres.length - 3)"></p-chip>
+              <p-chip *ngFor="let genre of movie.genres.slice(0, 2)" [label]="genre.name | titlecase"></p-chip>
+              <p-chip *ngIf="movie.genres.length > 2" [label]="'+' + (movie.genres.length - 2)"></p-chip>
             </td>
             <td>
               {{ movie.submitter }}
             </td>
             <td>
-              <p-button (click)="deleteMovie($event, movie)" icon="pi pi-times" [rounded]="true" [text]="true" severity="danger" />
+              <p-button (click)="deleteMovie($event, movie)" icon="pi pi-times" [rounded]="true" [text]="true"
+                        severity="danger"/>
             </td>
           </tr>
         </ng-template>
@@ -43,13 +37,13 @@
           <tr>
             <td colspan="7">
               <div class="p-4">
-                <p-table [value]="movie.subtitles" dataKey="id">
-                  <ng-template #body let-subtitle>
-                    <tr>
-                      <td colspan="4">
-                        {{ movie.name }} {{ subtitle.subtitle }}
+                <p-table [value]="movie.genres" dataKey="id">
+                  <ng-template #body let-genre>
+                    <div>
+                      <td class="flex gap-1">
+                        <p-chip class="ml-1" [label]="genre.name | titlecase"></p-chip>
                       </td>
-                    </tr>
+                    </div>
                   </ng-template>
                 </p-table>
               </div>

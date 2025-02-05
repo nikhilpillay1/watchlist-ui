@@ -8,8 +8,6 @@ import {Panel} from 'primeng/panel';
 import {UserService} from '../../../shared/services/user.service';
 import {NgClass, NgIf, TitleCasePipe} from '@angular/common';
 import {Subscription} from 'rxjs';
-import {Checkbox} from 'primeng/checkbox';
-import {AutoComplete} from 'primeng/autocomplete';
 import {PrimeTemplate} from 'primeng/api';
 import {Genre} from '../../../models/genre';
 import {GenreService} from '../../../services/genre.service';
@@ -24,11 +22,8 @@ import {GenreService} from '../../../services/genre.service';
     MultiSelect,
     Panel,
     NgClass,
-    Checkbox,
-    AutoComplete,
     PrimeTemplate,
-    NgIf,
-    TitleCasePipe
+    NgIf
   ],
   providers: [TitleCasePipe],
   templateUrl: './add-movie-form.component.html',
@@ -102,11 +97,7 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
               name: genre.name.toLowerCase(),
             }
           }),
-          isSeries: this.addMovieForm.get("isSeries")?.value!,
           submitter: this.selectedUser,
-          subtitles: this.addMovieForm.get("subtitles")!.value!.map(subtitle => {
-            return { subtitle : subtitle};
-          }),
         }
       } else {
         this.movie = {
@@ -117,7 +108,6 @@ export class AddMovieFormComponent implements OnInit, OnDestroy {
               name: genre.name.toLowerCase(),
             }
           }),
-          isSeries: this.addMovieForm.get("isSeries")?.value!,
           submitter: this.selectedUser,
         }
       }
